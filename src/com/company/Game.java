@@ -1,17 +1,19 @@
 package com.company;
 
 import com.company.environment.Dungeon;
+import com.company.liveEntities.Player;
 
 public class Game {
 
-    public static void start(){
+    public static void startGame(){
         int nbRooms=5;
         int atkPlayer=10;
+        int hpPlayer=200;
 
-        System.out.println("Welcome to Coding Dungeon");
+        Player hero = new Player(hpPlayer, atkPlayer);
         Dungeon dungeon = new Dungeon(nbRooms);
+        System.out.println("Welcome to Coding Dungeon");
 
-        //Modifier méthode pour qu'elle accepte plus de choses que int
         Main.getPlayerInput();
 
 
@@ -22,4 +24,9 @@ public class Game {
 
 
     }
+
+    public static void gameOver(){
+
+    }
+
 }

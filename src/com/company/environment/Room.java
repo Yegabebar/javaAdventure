@@ -14,7 +14,7 @@ public class Room {
     Room(){
         intMonsterType = new Random();
         Monster monster;
-        //Gérer le type de monstre random ici
+        //On génère un chiffre random à 0 ou 1 pour définir un type de monstre
         int randomMonsterTypeToGenerate = intMonsterType.nextInt(1);
         if(randomMonsterTypeToGenerate ==0){
             MonsterType monsterType = MonsterType.BARBARIAN;

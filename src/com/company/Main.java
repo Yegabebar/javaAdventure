@@ -12,12 +12,12 @@ public class Main {
             System.out.println("1 - Start game");
             System.out.println("2 - Quit");
 
-            int userInput = getPlayerInput();
+            String userInput = getPlayerInput();
             switch (userInput) {
-                case 1 -> {
-                    Game.start();
+                case "1" -> {
+                    Game.startGame();
                 }
-                case 2 -> {
+                case "2" -> {
                     return;
                 }
                 default -> {
@@ -27,11 +27,11 @@ public class Main {
         }
     }
 
-    public static int getPlayerInput() {
+    public static String getPlayerInput() {
         Scanner sc = new Scanner(System.in);
-        int userInput = 0;
+        String userInput= null;
         try {
-            userInput = sc.nextInt();
+            userInput = sc.nextLine();
         } catch (Exception e) {
             System.out.println("Sorry wrong input, please try again");
         }
