@@ -7,7 +7,6 @@ import com.company.liveEntities.Player;
 import com.company.miscellaneous.Stats;
 import com.company.miscellaneous.WeaponType;
 
-
 public class Game {
 
     public static void startGame(){
@@ -25,6 +24,7 @@ public class Game {
             System.out.println("Room number"+(i+1)+dungeon.rooms[i]);
             //Tant que le monstre a des hp
             while(dungeon.rooms[i].monster.getHp()>0){
+
                 //Le monstre attaque le joueur
                 int dmgMonsterAttack = dungeon.rooms[i].monster.attack();
                 hero.setHp(hero.getHp()-dmgMonsterAttack);
@@ -57,7 +57,7 @@ public class Game {
                 System.out.println("The "+dungeon.rooms[i].monster.monsterType.mtName+" has lost "+dmgPlayerAttack+" hp");
 
                 if(dungeon.rooms[i].monster.getHp()==0){
-                    System.out.println("You've killed the "+dungeon.rooms[i].monster.monsterType.mtName);
+                    System.out.println("Congrats, the "+dungeon.rooms[i].monster.monsterType.mtName+" is dead, you can open the next door");
                 }else{
                     System.out.println("He has only "+dungeon.rooms[i].monster.getHp()+" hp remaining");
                 }

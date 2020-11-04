@@ -2,7 +2,7 @@ package com.company.liveEntities;
 
 public enum MonsterType {
     BARBARIAN("Barbarian"),
-    WIZARD("Wizard");
+    SORCERER("Sorcerer");
 
     public String mtName;
 

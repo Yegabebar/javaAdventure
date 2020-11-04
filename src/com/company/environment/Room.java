@@ -23,7 +23,7 @@ public class Room {
         if(randomMonsterTypeToGenerate ==0){
             this.monsterType = MonsterType.BARBARIAN;
         }else{
-            this.monsterType = MonsterType.WIZARD;
+            this.monsterType = MonsterType.SORCERER;
         }
         System.out.println("Behind the door is a "+monsterType.mtName);
         //Instanciation du monstre dans la room
