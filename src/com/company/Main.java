@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        boolean keepPlaying = true;
+        Game.startGame();
+    }
+/*        boolean keepPlaying = true;
 
         while (keepPlaying) {
             System.out.println("Choose between the following options");
@@ -25,7 +27,7 @@ public class Main {
                 }
             }
         }
-    }
+    }*/
 
     public static String getPlayerInput() {
         Scanner sc = new Scanner(System.in);

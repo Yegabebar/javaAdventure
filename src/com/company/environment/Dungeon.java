@@ -3,16 +3,16 @@ package com.company.environment;
 import java.util.ArrayList;
 
 public class Dungeon {
-    ArrayList<Room> rooms;
+    //ArrayList<Room> rooms;
+    public Room[] rooms;
     public int nbRooms;
     //A voir l'utilité de cette variable
     int nbCurrentRoom;
 
     public Dungeon(int nbRooms){
-        //Voir si besoin d'itérer sur la liste pour
-        this.rooms = new ArrayList<Room>(nbRooms);
+        //L'instanciation du donjon déclenche la création du nombre de pièces du donjon
+        this.rooms = new Room[nbRooms];
         System.out.println("Let's enter the dungeon");
-
     }
 
     //Ajouter méthode openDoor

@@ -3,28 +3,24 @@ package com.company.environment;
 import com.company.liveEntities.Monster;
 import com.company.liveEntities.MonsterType;
 
-import java.util.Random;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Room {
-    Monster monster;
-    MonsterType monsterType;
-    Random intMonsterType;
+    public Monster monster;
+    public MonsterType monsterType;
 
-
-    Room(){
-        intMonsterType = new Random();
-        Monster monster;
+    public Room(){
         //On génère un chiffre random à 0 ou 1 pour définir un type de monstre
-        int randomMonsterTypeToGenerate = intMonsterType.nextInt(1);
+        int randomMonsterTypeToGenerate = ThreadLocalRandom.current().nextInt(0, 2);
         if(randomMonsterTypeToGenerate ==0){
-            MonsterType monsterType = MonsterType.BARBARIAN;
+            this.monsterType = MonsterType.BARBARIAN;
         }else{
-            MonsterType monsterType = MonsterType.WIZARD;
+            this.monsterType = MonsterType.WIZARD;
         }
-        this.monster = new Monster(monsterType);
-        //A déplacer potentiellement
+        this.monster = new Monster(this.monsterType);
         System.out.println("Behind the door is a "+monsterType.mName);
-
+        //L'instanciation de la room entraine la création d'un monstre, comme si on ouvrait la porte
 
     }
 

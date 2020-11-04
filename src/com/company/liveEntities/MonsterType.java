@@ -6,7 +6,7 @@ public enum MonsterType {
 
     public String mName;
 
-    private MonsterType(String monsterTypeName){
-        this.mName =monsterTypeName;
+    private MonsterType(String mName){
+        this.mName =mName;
     }
 }

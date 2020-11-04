@@ -16,7 +16,7 @@ public class Monster {
     public int attack(int atk){
         //Ajouter une chance de critical hit selon le type de monstre
         int dmg = atk;
-        System.out.println("The sorcerer is launching a strike of lightning at you");
+        System.out.println("The "+monsterType.mName+" is launching a strike of lightning at you");
         return dmg;
     }
 
