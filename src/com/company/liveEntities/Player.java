@@ -7,18 +7,13 @@ public class Player {
     int hp;
     int atk;
 
-    public Player(int hp, int atk){
-        this.hp = hp;
-        this.atk = atk;
+    public Player(int hpNewPlayer, int atkNewPlayer){
+        hp = hpNewPlayer;
+        atk = atkNewPlayer;
     }
     
-    public int attack(String playerAction, Monster monster){
-        int dmg =0;
-        if(playerAction.equals("Sword")&&monster.monsterType.mtName.equals("Barbarian")){
-            dmg = atk;
-        }else if(playerAction.equals("Water_Flask")&&monster.monsterType.mtName.equals("Wizard")){
-            dmg = atk;
-        }
+    public int attack(){
+        int dmg =10;
         return dmg;
     }
 

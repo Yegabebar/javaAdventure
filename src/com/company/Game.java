@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.environment.Dungeon;
 import com.company.environment.Room;
+import com.company.liveEntities.MonsterType;
 import com.company.liveEntities.Player;
 import com.company.miscellaneous.Stats;
 import com.company.miscellaneous.WeaponType;
@@ -34,22 +35,34 @@ public class Game {
                     gameOver();
                 }
                 //Si le joueur n'est pas mort, on demande une entrée à l'utilisateur
+                //avec l'arme qui correspond à l'ennemi
                 if(dungeon.rooms[i].monster.monsterType.mtName.equals("Barbarian")){
                     hero.setWeaponType(WeaponType.SWORD);
                 }else{
                     hero.setWeaponType(WeaponType.WATER_FLASK);
                 }
-
-                System.out.println("Type "+hero.getWeaponType()+" to fight back");
+                System.out.println("Type "+hero.weaponType.wtName+" to fight back");
+                //Récupération entrée utilisateur
                 String playerAction = Main.getPlayerInput();
-                //Fonction vérification d'entrée? Intégré dans Player.attack pour le moment
+                //Vérifie si le type d'arme correspond bien au type de monstre
+                Boolean hit = manageInput(playerAction, dungeon.rooms[i].monster.monsterType);
+                int dmgPlayerAttack=0;
+                if(hit){
+                    //Si c'est le cas, on attaque
+                    dmgPlayerAttack = hero.attack();
+                }
 
-                int dmgPlayerAttack = hero.attack(playerAction, dungeon.rooms[i].monster);
+                //Actualisation des hp du monstre, peut ne pas changer si le joueur a entré quelque chose d'incorrect
                 dungeon.rooms[i].monster.setHp((dungeon.rooms[i].monster.getHp()-dmgPlayerAttack));
+                System.out.println("The "+dungeon.rooms[i].monster.monsterType.mtName+" has lost "+dmgPlayerAttack+" hp");
 
-                System.out.println("HP Monster at end of turn"+dungeon.rooms[i].monster.getHp());
+                if(dungeon.rooms[i].monster.getHp()==0){
+                    System.out.println("You've killed the "+dungeon.rooms[i].monster.monsterType.mtName);
+                }else{
+                    System.out.println("He has only "+dungeon.rooms[i].monster.getHp()+" hp remaining");
+                }
 
-
+                System.out.println("");
             }
             if(i==Stats.nbRooms){
                 System.out.println("Congratulations you beat the game!");
@@ -58,12 +71,22 @@ public class Game {
 
         }
 
-
-
     }
+
+    private static Boolean manageInput(String playerAction, MonsterType monsterType){
+        Boolean hit = false;
+        if(playerAction.equals("Sword")&&monsterType.mtName.equals("Barbarian")){
+            hit = true;
+        }else if(playerAction.equals("Water_Flask")&&monsterType.mtName.equals("Wizard")){
+            hit = true;
+        }
+        return hit;
+    }
+
 
     public static void gameOver(){
         System.out.println("You died with a lot of suffering");
+        return;
     }
 
 }

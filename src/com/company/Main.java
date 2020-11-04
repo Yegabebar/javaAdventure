@@ -37,7 +37,7 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Sorry wrong input, please try again");
         }
-        sc.nextLine();
+
         return userInput;
     }
 }

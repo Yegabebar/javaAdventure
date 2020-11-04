@@ -6,7 +6,7 @@ public enum WeaponType {
 
     public String wtName;
 
-    private WeaponType(String mName){
+    private WeaponType(String wtName){
         this.wtName = wtName;
     }
 }

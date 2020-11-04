@@ -5,11 +5,12 @@ public class Monster {
     int hp;
     int atk;
 
-    public Monster(MonsterType monsterType, int hp, int atk){
+    public Monster(MonsterType newMonsterType, int hpNewMonster, int atkNewMonster){
         //Récupérer les valeurs hp et atk depuis classe game
-        this.hp = hp;
-        this.atk = atk;
-        this.monsterType = monsterType;
+        monsterType = newMonsterType;
+        hp = hpNewMonster;
+        atk = atkNewMonster;
+
     }
 
     public int attack(){

@@ -5,6 +5,6 @@ public class Stats {
     public static int atkPlayer=10;
     public static int hpPlayer=200;
     public static int atkMonster=10;
-    public static int hpMonster=200;
+    public static int hpMonster=40;
 
 }
