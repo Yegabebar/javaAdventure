@@ -35,7 +35,6 @@ public class Monster {
             monsterAction=" is launching a strike of lightning at you";
         }
 
-        dmg = atk;
         System.out.println("The "+ MType.MName +monsterAction);
         return dmg;
     }
