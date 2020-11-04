@@ -1,7 +1,7 @@
 package com.company.environment;
 
 import com.company.liveEntities.Monster;
-import com.company.liveEntities.MonsterType;
+import com.company.miscellaneous.MonsterType;
 import com.company.miscellaneous.Stats;
 
 
@@ -25,7 +25,7 @@ public class Room {
         }else{
             this.monsterType = MonsterType.SORCERER;
         }
-        System.out.println("Behind the door is a "+monsterType.mtName);
+        System.out.println("Behind the door is a "+monsterType.MName);
         //Instanciation du monstre dans la room
         this.monster = new Monster(this.monsterType, Stats.hpMonster, Stats.atkMonster);
     }

@@ -2,7 +2,7 @@ package com.company;
 
 import com.company.environment.Dungeon;
 import com.company.environment.Room;
-import com.company.liveEntities.MonsterType;
+import com.company.miscellaneous.MonsterType;
 import com.company.liveEntities.Player;
 import com.company.miscellaneous.Stats;
 import com.company.miscellaneous.WeaponType;
@@ -20,15 +20,15 @@ public class Game {
             int flaskBonus=0;
             System.out.println("⍑⍑⍑⍑ ROOM "+(i+1)+" ⍑⍑⍑⍑");
             //Création d'une room dans la première pièce du donjon
-            dungeon.rooms[i]=new Room();
+            dungeon.room[i]=new Room();
             //Tant que le monstre a des hp
-            while(dungeon.rooms[i].monster.getHp()>0){
+            while(dungeon.room[i].monster.getHp()>0){
 
                 int dmgPlayerAttack=0;
 
                 System.out.println("==== NEW TURN ===");
                 //Le monstre attaque le joueur
-                int dmgMonsterAttack = dungeon.rooms[i].monster.attack();
+                int dmgMonsterAttack = dungeon.room[i].monster.attack();
                 hero.setHp(hero.getHp()-dmgMonsterAttack);
                 if(hero.getHp()<1){
                     System.out.println("");
@@ -41,32 +41,32 @@ public class Game {
 
                 //Si le joueur n'est pas mort, on demande une entrée à l'utilisateur
                 //avec l'arme qui correspond à l'ennemi
-                if(dungeon.rooms[i].monster.monsterType.mtName.equals("Barbarian")){
+                if(dungeon.room[i].monster.MType.MName.equals("Barbarian")){
                     hero.setWeaponType(WeaponType.SWORD);
                 }else{
                     hero.setWeaponType(WeaponType.WATER_FLASK);
                 }
-                System.out.println("Type "+hero.weaponType.wtName+" to fight back");
+                System.out.println("Type "+hero.WType.wName +" to fight back");
                 //Récupération entrée utilisateur
                 String playerAction = Main.getPlayerInput();
                 //Vérifie si le type d'arme correspond bien au type de monstre
-                Boolean hit = manageInput(playerAction, dungeon.rooms[i].monster.monsterType);
+                Boolean hit = manageInput(playerAction, dungeon.room[i].monster.MType);
 
                 if(hit==true){
                     System.out.println("====== HIT ======");
                     //Si c'est le cas, on attaque le monstre en deux temps = détermination du score d'attaque
-                    dmgPlayerAttack = hero.attack(hero.weaponType.wtName, flaskBonus);
+                    dmgPlayerAttack = hero.attack(hero.WType.wName, flaskBonus);
                     //Puis actualisation des hp du monstre
-                    dungeon.rooms[i].monster.setHp((dungeon.rooms[i].monster.getHp()-dmgPlayerAttack));
+                    dungeon.room[i].monster.setHp((dungeon.room[i].monster.getHp()-dmgPlayerAttack));
                     //Si on a attaqué avec une flasque
                     flaskBonus = addFlaskBonus(hero, flaskBonus);
 
-                    System.out.println("The "+dungeon.rooms[i].monster.monsterType.mtName+" has lost "+dmgPlayerAttack+" hp");
-                    if(dungeon.rooms[i].monster.getHp()==0){
-                        System.out.println("Congrats, the "+dungeon.rooms[i].monster.monsterType.mtName+" is dead, you can open the next door");
+                    System.out.println("The "+dungeon.room[i].monster.MType.MName +" has lost "+dmgPlayerAttack+" hp");
+                    if(dungeon.room[i].monster.getHp()==0){
+                        System.out.println("Congrats, the "+dungeon.room[i].monster.MType.MName +" is dead, you can open the next door");
                         System.out.println("=================");
                     }else{
-                        System.out.println("He has only "+dungeon.rooms[i].monster.getHp()+" hp remaining");
+                        System.out.println("He has only "+dungeon.room[i].monster.getHp()+" hp remaining");
                     }
                 }
                 System.out.println(""); //Marque la fin du tour visuellement
@@ -79,7 +79,7 @@ public class Game {
     }
 
     private static int addFlaskBonus(Player hero, int flaskBonus) {
-        if(hero.weaponType.wtName.equals("Water_Flask")){
+        if(hero.WType.wName.equals("Water_Flask")){
             //On affiche une phrase suivant la valeur du bonus
             if(flaskBonus ==0){
                 System.out.println("Flask Bonus has been reseted");
@@ -96,9 +96,9 @@ public class Game {
     private static Boolean manageInput(String playerAction, MonsterType monsterType){
         Boolean hit = false;
 
-        if(playerAction.equals("Sword")&&monsterType.mtName.equals("Barbarian")){
+        if(playerAction.equals("Sword")&&monsterType.MName.equals("Barbarian")){
             hit = true;
-        }else if(playerAction.equals("Water_Flask")&&monsterType.mtName.equals("Sorcerer")){
+        }else if(playerAction.equals("Water_Flask")&&monsterType.MName.equals("Sorcerer")){
             hit = true;
         }
         return hit;

@@ -1,12 +1,12 @@
-package com.company.liveEntities;
+package com.company.miscellaneous;
 
 public enum MonsterType {
     BARBARIAN("Barbarian"),
     SORCERER("Sorcerer");
 
-    public String mtName;
+    public String MName;
 
     private MonsterType(String mName){
-        this.mtName = mName;
+        this.MName = mName;
     }
 }

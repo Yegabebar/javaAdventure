@@ -3,7 +3,7 @@ package com.company.liveEntities;
 import com.company.miscellaneous.WeaponType;
 
 public class Player {
-    public WeaponType weaponType;
+    public WeaponType WType;
     int hp;
     int atk;
 
@@ -39,10 +39,10 @@ public class Player {
     }
 
     public WeaponType getWeaponType() {
-        return weaponType;
+        return WType;
     }
 
     public void setWeaponType(WeaponType weaponType) {
-        this.weaponType = weaponType;
+        this.WType = weaponType;
     }
 }
