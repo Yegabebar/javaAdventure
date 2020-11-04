@@ -12,8 +12,13 @@ public class Player {
         atk = atkNewPlayer;
     }
     
-    public int attack(){
+    public int attack(String stringWeaponType, int flaskBonus){
         int dmg =10;
+        switch (stringWeaponType) {
+            case "Water_Flask" -> {
+                dmg += flaskBonus;
+            }
+        }
         return dmg;
     }
 
@@ -23,6 +28,14 @@ public class Player {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public void setAtk(int atk) {
+        this.atk = atk;
     }
 
     public WeaponType getWeaponType() {
