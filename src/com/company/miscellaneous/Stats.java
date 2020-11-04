@@ -1,4 +1,4 @@
-package com.company.liveEntities;
+package com.company.miscellaneous;
 
 public class Stats {
     public static int nbRooms=5;

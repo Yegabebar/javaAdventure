@@ -1,7 +1,7 @@
 package com.company.liveEntities;
 
 public class Monster {
-    MonsterType monsterType;
+    public MonsterType monsterType;
     int hp;
     int atk;
 
@@ -16,7 +16,7 @@ public class Monster {
 
         double criticalHitProcPercentage;
         String monsterAction;
-        if(monsterType.mName=="Barbarian"){
+        if(monsterType.mtName =="Barbarian"){
             //30% de chances dégats double
             monsterAction=" strikes you with an axe";
             //criticalHitProcPercentage = 0.3;
@@ -31,17 +31,11 @@ public class Monster {
             criticalHit=true;
         }*/
         int dmg = atk;
-        System.out.println("The "+monsterType.mName+monsterAction);
+        System.out.println("The "+monsterType.mtName +monsterAction);
         return dmg;
     }
 
-    public MonsterType getMonsterType() {
-        return monsterType;
-    }
 
-    public void setMonsterType(MonsterType monsterType) {
-        this.monsterType = monsterType;
-    }
 
     public int getHp() {
         return hp;

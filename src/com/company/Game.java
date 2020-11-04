@@ -3,7 +3,8 @@ package com.company;
 import com.company.environment.Dungeon;
 import com.company.environment.Room;
 import com.company.liveEntities.Player;
-import com.company.liveEntities.Stats;
+import com.company.miscellaneous.Stats;
+import com.company.miscellaneous.WeaponType;
 
 
 public class Game {
@@ -22,41 +23,40 @@ public class Game {
             dungeon.rooms[i]=new Room();
             System.out.println("Room number"+(i+1)+dungeon.rooms[i]);
             //Tant que le monstre a des hp
-            System.out.println("HP Monster before first turn: "+dungeon.rooms[i].monster.getHp());
-            System.out.println("HP Player before first turn: "+hero.getHp());
-
             while(dungeon.rooms[i].monster.getHp()>0){
-                dungeon.rooms[i].monster.attack()
-                //et si le joueur n'est pas mort
+                //Le monstre attaque le joueur
+                int dmgMonsterAttack = dungeon.rooms[i].monster.attack();
+                hero.setHp(hero.getHp()-dmgMonsterAttack);
+                System.out.println("You have lost "+dmgMonsterAttack+" hp");
+                System.out.println("You have only "+hero.getHp()+" hp remaining");
+
                 if(hero.getHp()<0){
                     gameOver();
                 }
+                //Si le joueur n'est pas mort, on demande une entrée à l'utilisateur
+                if(dungeon.rooms[i].monster.monsterType.mtName.equals("Barbarian")){
+                    hero.setWeaponType(WeaponType.SWORD);
+                }else{
+                    hero.setWeaponType(WeaponType.WATER_FLASK);
+                }
 
-                //on demande une entrée à l'utilisateur
-                System.out.println("");
+                System.out.println("Type "+hero.getWeaponType()+" to fight back");
                 String playerAction = Main.getPlayerInput();
-                int dmgAttack;
-                dmgAttack = hero.attack(playerAction, dungeon.rooms[i].monster);
-                dungeon.rooms[i].monster.setHp((dungeon.rooms[i].monster.getHp()-dmgAttack));
+                //Fonction vérification d'entrée? Intégré dans Player.attack pour le moment
+
+                int dmgPlayerAttack = hero.attack(playerAction, dungeon.rooms[i].monster);
+                dungeon.rooms[i].monster.setHp((dungeon.rooms[i].monster.getHp()-dmgPlayerAttack));
 
                 System.out.println("HP Monster at end of turn"+dungeon.rooms[i].monster.getHp());
 
 
             }
-
+            if(i==Stats.nbRooms){
+                System.out.println("Congratulations you beat the game!");
+                return;
+            }
 
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

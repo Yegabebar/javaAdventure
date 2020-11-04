@@ -2,7 +2,7 @@ package com.company.environment;
 
 import com.company.liveEntities.Monster;
 import com.company.liveEntities.MonsterType;
-import com.company.liveEntities.Stats;
+import com.company.miscellaneous.Stats;
 
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,7 +25,7 @@ public class Room {
         }else{
             this.monsterType = MonsterType.WIZARD;
         }
-        System.out.println("Behind the door is a "+monsterType.mName);
+        System.out.println("Behind the door is a "+monsterType.mtName);
         //Instanciation du monstre dans la room
         this.monster = new Monster(this.monsterType, Stats.hpMonster, Stats.atkMonster);
     }
