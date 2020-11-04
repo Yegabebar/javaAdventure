@@ -9,9 +9,14 @@ public class Player {
         this.atk = atk;
     }
     
-    public void attack(int atk){
-
-        return;
+    public int attack(String playerAction, Monster monster){
+        int dmg =0;
+        if(playerAction.equals("Sword")&&monster.monsterType.mName.equals("Barbarian")){
+            dmg = atk;
+        }else if(playerAction.equals("Water_Flask")&&monster.monsterType.mName.equals("Wizard")){
+            dmg = atk;
+        }
+        return dmg;
     }
 
     public int getHp() {

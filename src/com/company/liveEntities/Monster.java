@@ -5,18 +5,33 @@ public class Monster {
     int hp;
     int atk;
 
-    public Monster(MonsterType monsterType){
+    public Monster(MonsterType monsterType, int hp, int atk){
         //Récupérer les valeurs hp et atk depuis classe game
         this.hp = hp;
         this.atk = atk;
         this.monsterType = monsterType;
-        attack(atk);
-
     }
-    public int attack(int atk){
-        //Ajouter une chance de critical hit selon le type de monstre
+
+    public int attack(){
+
+        double criticalHitProcPercentage;
+        String monsterAction;
+        if(monsterType.mName=="Barbarian"){
+            //30% de chances dégats double
+            monsterAction=" strikes you with an axe";
+            //criticalHitProcPercentage = 0.3;
+        }else{
+            //10% de chances de paralysie
+            monsterAction=" is launching a strike of lightning at you";
+            //criticalHitProcPercentage = 0.1;
+        }
+        /*double criticalHitRand = Math.random();
+        boolean criticalHit=false;
+        if (criticalHitRand < criticalHitProcPercentage){
+            criticalHit=true;
+        }*/
         int dmg = atk;
-        System.out.println("The "+monsterType.mName+" is launching a strike of lightning at you");
+        System.out.println("The "+monsterType.mName+monsterAction);
         return dmg;
     }
 
