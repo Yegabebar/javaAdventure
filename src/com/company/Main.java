@@ -5,11 +5,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Game.startGame();
-    }
-/*        boolean keepPlaying = true;
 
-        while (keepPlaying) {
+        boolean keepUp = true;
+
+        while(keepUp) {
             System.out.println("Choose between the following options");
             System.out.println("1 - Start game");
             System.out.println("2 - Quit");
@@ -27,7 +26,7 @@ public class Main {
                 }
             }
         }
-    }*/
+    }
 
     public static String getPlayerInput() {
         Scanner sc = new Scanner(System.in);

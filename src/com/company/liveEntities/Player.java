@@ -1,5 +1,6 @@
 package com.company.liveEntities;
 
+
 import com.company.miscellaneous.WeaponType;
 
 public class Player {
@@ -32,14 +33,6 @@ public class Player {
 
     public int getAtk() {
         return atk;
-    }
-
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-
-    public WeaponType getWeaponType() {
-        return WType;
     }
 
     public void setWeaponType(WeaponType weaponType) {

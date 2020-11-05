@@ -12,21 +12,20 @@ public class Room {
     public MonsterType monsterType;
 
     public Room(){
-        //L'instanciation de la room entraine la création d'un monstre, comme si on ouvrait la porte
+        //The room instanciation triggers the instanciation of a monster, as if we actually opened a door
         generateRandomMonster();
     }
 
     private void generateRandomMonster(){
-        //On génère un chiffre random à 0 ou 1 pour définir un type de monstre
+        //Generates a random int to define which kind of monster will spawn
         int randomMonsterTypeToGenerate = ThreadLocalRandom.current().nextInt(0, 2);
-        //Puis on définit quel est le type de monstre à instancier
         if(randomMonsterTypeToGenerate ==0){
             this.monsterType = MonsterType.BARBARIAN;
         }else{
             this.monsterType = MonsterType.SORCERER;
         }
         System.out.println("Behind the door is a "+monsterType.MName);
-        //Instanciation du monstre dans la room
+        //Instanciate a monster with the randomly chosen monster type
         this.monster = new Monster(this.monsterType, Stats.hpMonster, Stats.atkMonster);
     }
 

@@ -4,9 +4,9 @@ public enum WeaponType {
     SWORD("Sword"),
     WATER_FLASK("Water_Flask");
 
-    public String wName;
+    public String WName;
 
     private WeaponType(String wtName){
-        this.wName = wtName;
+        this.WName = wtName;
     }
 }

@@ -10,7 +10,7 @@ public class Monster {
     int atk;
 
     public Monster(MonsterType newMonsterType, int hpNewMonster, int atkNewMonster){
-        //Récupérer les valeurs hp et atk depuis classe game
+        //Sets the values for the properties of the Monster object
         MType = newMonsterType;
         hp = hpNewMonster;
         atk = atkNewMonster;
@@ -18,28 +18,23 @@ public class Monster {
     }
 
     public int attack(){
-
-        boolean incapacitating = false;
         String monsterAction;
         int dmg=Stats.atkMonster;
+        //If the monster is a barbarian
         if(MType.MName =="Barbarian"){
-            //30% de chances dégats double
-            if(Events.eventRandomizer(Stats.barbarianEventRate)==true){
+            //Tries to trigger the event when the player will be knocked out
+            if(Events.eventRandomizer(Stats.barbarianEventRate)){
                 dmg*=Stats.barbarianAttackScoreMultiplier;
                 System.out.println("Critical hit!");
             }
             monsterAction=" strikes you with an axe";
-        }else{//A sortir de la méthode attack?
-            //10% de chances de paralysie
-            //incapacitating = Events.eventRandomizer(Stats.sorcererBuffRate);
+        }else{
             monsterAction=" is launching a strike of lightning at you";
         }
-
+        //Displays the attack message depending on the monster type which is attacking
         System.out.println("The "+ MType.MName +monsterAction);
         return dmg;
     }
-
-
 
     public int getHp() {
         return hp;
@@ -49,11 +44,4 @@ public class Monster {
         this.hp = hp;
     }
 
-    public int getAtk() {
-        return atk;
-    }
-
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
 }
