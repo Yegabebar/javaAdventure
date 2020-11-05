@@ -1,13 +1,18 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
+    /**
+     * The player will be stuck on this menu until he will input a String corresponding to one of the supported cases.
+     * The 3rd choice is a cheat code to set up the game with harder settings for the player
+     * @param args
+     */
     public static void main(String[] args) {
 
         boolean keepUp = true;
-
+        //While the play doesn't
         while(keepUp) {
             System.out.println("Choose between the following options");
             System.out.println("1 - Start game");
@@ -16,10 +21,13 @@ public class Main {
             String userInput = getPlayerInput();
             switch (userInput) {
                 case "1" -> {
-                    Game.startGame();
+                    Game.start("normal");
                 }
                 case "2" -> {
                     return;
+                }
+                case "hit me with a brick" -> {
+                    Game.start("hardcore");
                 }
                 default -> {
                     System.out.println("Option not available, please try again");
@@ -28,6 +36,10 @@ public class Main {
         }
     }
 
+    /**
+     * Function used each time we need a string from the player
+     * @return the String written by the player
+     */
     public static String getPlayerInput() {
         Scanner sc = new Scanner(System.in);
         String userInput= null;

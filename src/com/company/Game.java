@@ -8,24 +8,32 @@ import com.company.liveEntities.Player;
 import com.company.miscellaneous.Stats;
 import com.company.miscellaneous.WeaponType;
 
-public class Game {
+import java.io.IOException;
 
-    public static void startGame(){
+public class Game {
+    /**
+     * The main game mechanic happens here.
+     * We iterate on a for loop, each time a monster is beaton in its while loop.
+     * @param mode
+     */
+    public static void start(String mode){
+        System.out.println("=Welcome to Coding Dungeon=");
+        Stats.setMode(mode);
+        System.out.println("");
         //We instanciate the Player character and the dungeon
         Player hero = new Player(Stats.hpPlayer, Stats.atkPlayer);
-        System.out.println("Welcome to Coding Dungeon");
-        System.out.println("");
+        //The dungeon creates a list of rooms without any object rooms in it.
         Dungeon dungeon = new Dungeon(Stats.nbRooms);
 
-        //Main loop, used to pass from room to room
+        //Main loop, used create a room with a monster at each turn, we pass room to room each time we get out of the while.
         for(int i= 0; i<dungeon.room.length; i++){
             int flaskBonus=0;
             //Shortened notation of the current room when we iterate on the for loop
             Room room = dungeon.room[i];
-            System.out.println("⍑⍑⍑⍑ ROOM "+(i+1)+" ⍑⍑⍑⍑");
+            System.out.println("᭶᭶᭶᭶ ROOM "+(i+1)+" ᭶᭶᭶᭶");
             //Room generation inside the current dungeon slot, generates the monster as well
             room=new Room();
-            //The combat happens here, while the monster is not dead
+            //Combats happen here, while the monster is not dead
             while(room.monster.getHp()>0){
                 int dmgPlayerAttack=0;
                 int dmgMonsterAttack=0;
@@ -46,20 +54,15 @@ public class Game {
                 }
 
                 //Check the monster type, in order to know which weapon the player will have to use
-                if(room.monster.MType.MName.equals("Barbarian")){
+                if(room.monster.MonsterType.MonsterName.equals("Barbarian")){
                     hero.setWeaponType(WeaponType.SWORD);
                 }else{
                     hero.setWeaponType(WeaponType.WATER_FLASK);
                     //If it's a sorcerer we try to get the player knocked out and store the result in a boolean for later use
                     Events.playerKo = Events.eventRandomizer(Stats.sorcererEventRate);
                 }
-
-                if(hero.getHp()<1){ //If the player health is down to zero the player looses and gets brought back to the main menu
-                    System.out.println("");
-                    System.out.println("=== GAME OVER ===");
-                    System.out.println("You died with a lot of suffering");
-                    return;
-                }
+                //GAME OVER is managed here. If the player's hp are down to 0, a message is displayed by the function and the player is redirected to the main menu.
+                if(gameOver(hero, room)){return;}
 
                 System.out.println("You have only "+hero.getHp()+" hp remaining"); //If the player is not dead we display the remaining HP
 
@@ -70,45 +73,77 @@ public class Game {
                 }
 
                 //If the player is not dead yet, the player is asked for input
-                System.out.println("Type "+hero.WType.WName +" to fight back");
+                System.out.println("Type "+hero.WeaponType.WeaponName +" to fight back");
                 String playerAction = Main.getPlayerInput();
                 //Check if the input is a correct one+ if the weapon matches the monster type
-                boolean hit = manageInput(playerAction, room.monster.MType);
+                boolean hit = manageInput(playerAction, room.monster.MonsterType);
                 //If it's the case, the monster will be hit
                 if(hit){
                     System.out.println("====== HIT ======");
                     //Set the damage value for the player attack, and then apply it on the monster's life
-                    dmgPlayerAttack = hero.attack(hero.WType.WName, flaskBonus);
+                    dmgPlayerAttack = hero.attack(hero.WeaponType.WeaponName, flaskBonus);
                     room.monster.setHp((room.monster.getHp()-dmgPlayerAttack));
-                    //This function has two goals: initialize the flask bonus and attempt to get the knockout effect for the barbarian
-                    flaskBonus = initializePlayerEvents(hero, flaskBonus);
                     //Displays how many HP the monster has lost, and then display the monster(s status accordingly
-                    System.out.println("The "+room.monster.MType.MName +" has lost "+dmgPlayerAttack+" hp");
-                    if(room.monster.getHp()<=0){
-                        //If the monster is dead and the room is the last one, the player wins.
+                    System.out.println("The "+room.monster.MonsterType.MonsterName +" has lost "+dmgPlayerAttack+" hp");
+                    //This function has two goals: initialize the flask bonus and attempt to get the knockout effect for the barbarian
+                    flaskBonus = initPlayerEvents(hero, flaskBonus);
+
+                    if(room.monster.getHp()<=0){//If the monster is dead and the room is the last one, the player wins.
+                        //If the room was the last, the player wins
                         if(i==Stats.nbRooms-1){
                             System.out.println("Congratulations, the treasure is yours!");
                             System.out.println("");
                             return;
-                        }
-                        System.out.println("Congrats, the "+room.monster.MType.MName +" is dead, you can open the next door");
+                        }//If it wasn't the last room, the message is not the same one
+                        System.out.println("Congrats, the "+room.monster.MonsterType.MonsterName +" is dead, you can open the next door");
                         System.out.println("=================");
-                    }else{
+                    }else{//If the monster is not dead, we display the remaining monster's HP
                         System.out.println("He has only "+room.monster.getHp()+" hp remaining");
                     }
                 }else{System.out.println("You miss!");} //Else if not hit, the attacked missed.
-                System.out.println(""); //Skip next line
+                System.out.println(""); //Visual separation
             }
             //We reset the variable monsterKo as we don't want to set Ko the monster from the next room
             Events.monsterKo=false;
         }
     }
 
-    private static int initializePlayerEvents(Player hero, int flaskBonus) {
+    /**
+     * This function does not actually quit the current game as "return;" wouldn't work there.
+     * That's why it returns a boolean instead, used straight away in start() to get back to the main menu.
+     * @param hero
+     * @param room
+     * @return a boolean that says if the player is dead or not.
+     */
+    private static boolean gameOver(Player hero, Room room) {
+        boolean dead=false;
+        if(hero.getHp()<1){ //If the player health is down to zero the player looses and gets brought back to the main menu
+            dead=true;
+            System.out.println("");
+            System.out.println("=== GAME OVER ===");
+            if(Stats.getMode().equals("normal")){
+                System.out.println("Sorry, you have been killed by a "+ room.monsterType.MonsterName);
+            }else{
+                System.out.println("Congratulations, you are very much dead!");
+            }
+
+        }
+        return dead;
+    }
+
+    /**
+     * This function sets the flask buff stack when the weapon used is a FLask.
+     * If the weapon is a sword, it will set up the knockout event for knocking out barbarians
+     * The knockout event is stored in the class Events for later use.
+     * @param hero
+     * @param flaskBonus
+     * @return an int representing the amount of the stackable flask bonus
+     */
+    private static int initPlayerEvents(Player hero, int flaskBonus) {
         //If the weapon is the flask, we initiliaze the flask bonus
-        if(hero.WType.WName.equals("Water_Flask")){
+        if(hero.WeaponType.WeaponName.equals("Water_Flask")){
             //Displays text depending if whether the bonus has already been initialized or not
-            if(flaskBonus ==0){
+            if(flaskBonus==0){
                 System.out.println("Flask Bonus has been reseted");
             }else{
                 System.out.println("Another flask hits the sorcerer adding water to the pool at his feet,"
@@ -126,14 +161,23 @@ public class Game {
         return flaskBonus;
     }
 
+    /**
+     * This function checks if the player input is correct according to the monster type.
+     * If not, this function will
+     * @param playerAction
+     * @param monsterType
+     * @return a boolean indicating if the attack misses or if we actually attack the monster afterwards.
+     */
     private static boolean manageInput(String playerAction, MonsterType monsterType){
         boolean hit = false;
         //If the player input matches the type of the monster, the boolean "hit" is set to true
-        if(playerAction.equals("Sword")&&monsterType.MName.equals("Barbarian")){
+        if(playerAction.equals("Sword")&&monsterType.MonsterName.equals("Barbarian")){
             hit = true;
-        }else if(playerAction.equals("Water_Flask")&&monsterType.MName.equals("Sorcerer")){
+        }else if(playerAction.equals("Water_Flask")&&monsterType.MonsterName.equals("Sorcerer")){
             hit = true;
         }
         return hit;
     }
 }
+
+

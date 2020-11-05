@@ -16,17 +16,22 @@ public class Room {
         generateRandomMonster();
     }
 
+    /**
+     * This method will only ever be called by this class.
+     * It randomly chooses between 0 and 1, then uses this result to generate a certain type of monster.
+     * The base stats HP and ATK are gathered from the Stats class which is some kind of config file to tweak as we want.
+     */
     private void generateRandomMonster(){
         //Generates a random int to define which kind of monster will spawn
         int randomMonsterTypeToGenerate = ThreadLocalRandom.current().nextInt(0, 2);
         if(randomMonsterTypeToGenerate ==0){
-            this.monsterType = MonsterType.BARBARIAN;
+            monsterType = MonsterType.BARBARIAN;
         }else{
-            this.monsterType = MonsterType.SORCERER;
+            monsterType = MonsterType.SORCERER;
         }
-        System.out.println("Behind the door is a "+monsterType.MName);
+        System.out.println("Behind the door is a "+monsterType.MonsterName);
         //Instanciate a monster with the randomly chosen monster type
-        this.monster = new Monster(this.monsterType, Stats.hpMonster, Stats.atkMonster);
+        monster = new Monster(monsterType, Stats.hpMonster, Stats.atkMonster);
     }
 
 }

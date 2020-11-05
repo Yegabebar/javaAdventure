@@ -1,17 +1,44 @@
 package com.company.miscellaneous;
 
 /**
- *The purpose of this class is to be able to easily tweak the game parameters.
+ * The purpose of this class is to be able to easily tweak the game parameters.
  */
 public class Stats {
-    public static int nbRooms=5;
-    public static int atkPlayer=10;
-    public static int hpPlayer=200;
-    public static double playerEventRate=0.1;
-    public static int atkMonster=10;
-    public static int hpMonster=1;
-    public static int barbarianAttackScoreMultiplier =2;
-    public static double barbarianEventRate=0.3;
-    public static double sorcererEventRate=0.1;
+    public static int nbRooms, atkPlayer, hpPlayer, atkMonster, hpMonster, barbarianAttackScoreMultiplier;
+    public static double playerEventRate, barbarianEventRate, sorcererEventRate;
+    private static String mode;
 
+    /**
+     * This function sets the variables according to which mode is selected in the main menu
+     * @param mode
+     */
+    public static void setMode(String mode){
+        if(mode.equals("normal")){
+            nbRooms=5;
+            atkPlayer=10;
+            hpPlayer=200;
+            playerEventRate=0.1;
+            atkMonster=10;
+            hpMonster=40;
+            barbarianAttackScoreMultiplier =2;
+            barbarianEventRate=0.3;
+            sorcererEventRate=0.1;
+        }
+        else if(mode.equals("hardcore")){
+            nbRooms=5;
+            atkPlayer=10;
+            hpPlayer=250;
+            playerEventRate=0.3;
+            atkMonster=10;
+            hpMonster=80;
+            barbarianAttackScoreMultiplier =4;
+            barbarianEventRate=0.15;
+            sorcererEventRate=0.1;
+            System.out.println("| HARCORE MODE ACTIVATED |");
+        }
+    }
+
+    public static String getMode() {
+        return mode;
+    }
 }

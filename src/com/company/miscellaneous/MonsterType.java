@@ -4,9 +4,9 @@ public enum MonsterType {
     BARBARIAN("Barbarian"),
     SORCERER("Sorcerer");
 
-    public String MName;
+    public String MonsterName;
 
     private MonsterType(String mName){
-        this.MName = mName;
+        this.MonsterName = mName;
     }
 }
