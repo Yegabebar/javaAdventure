@@ -25,12 +25,12 @@ public class Monster {
      */
     public int attack(){
         String monsterAction;
-        int dmg=Stats.atkMonster;
+        int dmg=Stats.getAtkMonster();
         //If the monster is a barbarian
         if(MonsterType.MonsterName =="Barbarian"){
             //Tries to trigger the event when the player will be knocked out
-            if(Events.eventRandomizer(Stats.barbarianEventRate)){
-                dmg*=Stats.barbarianAttackScoreMultiplier;
+            if(Events.eventRandomizer(Stats.getBarbarianEventRate())){
+                dmg*=Stats.getBarbarianAttackScoreMultiplier();
                 System.out.println("Critical hit!");
             }
             monsterAction=" strikes you with an axe";

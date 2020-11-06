@@ -18,9 +18,9 @@ public class Game {
         Stats.setMode(mode);
         System.out.println("");
         //We instanciate the Player character and the dungeon
-        Player hero = new Player(Stats.hpPlayer, Stats.atkPlayer);
+        Player hero = new Player(Stats.getHpPlayer(), Stats.getAtkPlayer());
         //The dungeon creates a list of rooms without any object rooms in it.
-        Dungeon dungeon = new Dungeon(Stats.nbRooms);
+        Dungeon dungeon = new Dungeon(Stats.getNbRooms());
         long startTime = System.nanoTime(); //Start the timer
         //Main loop, used create a room with a monster at each turn, we pass room to room each time we get out of the while.
         for(int i= 0; i<dungeon.room.length; i++){
@@ -56,7 +56,7 @@ public class Game {
                 }else{
                     hero.setWeaponType(WeaponType.WATER_FLASK);
                     //If it's a sorcerer we try to get the player knocked out and store the result in a boolean for later use
-                    Events.playerKo = Events.eventRandomizer(Stats.sorcererEventRate);
+                    Events.playerKo = Events.eventRandomizer(Stats.getSorcererEventRate());
                 }
                 //GAME OVER is managed here. If the player's hp are down to 0, a message is displayed by the function and the player is redirected to the main menu.
                 if(gameOver(hero, room)){return;}
@@ -87,7 +87,7 @@ public class Game {
 
                     if(room.monster.getHp()<=0){//If the monster is dead and the room is the last one, the player wins.
                         //If the room was the last, the player wins
-                        if(i==Stats.nbRooms-1){
+                        if(i==Stats.getNbRooms()-1){
                             //The player is congratulated prompted to enter its nickname in this function
                             gameCompleted(startTime);
                             return;
@@ -167,7 +167,7 @@ public class Game {
             flaskBonus +=2;
         }else{ //else if the weapon is the sword, we try to knock out the monster
             //If the player event kicks in (monster knocked out)
-            if(Events.eventRandomizer(Stats.playerEventRate)){
+            if(Events.eventRandomizer(Stats.getPlayerEventRate())){
                 Events.monsterKo=true; //We set the variable monsterKo to true for the next turn
                 System.out.println("The Barbarian is knocked out for one turn after you hit it on its head");
             }

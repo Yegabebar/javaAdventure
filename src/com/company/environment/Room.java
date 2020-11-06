@@ -31,7 +31,7 @@ public class Room {
         }
         System.out.println("Behind the door is a "+monsterType.MonsterName);
         //Instanciate a monster with the randomly chosen monster type
-        monster = new Monster(monsterType, Stats.hpMonster, Stats.atkMonster);
+        monster = new Monster(monsterType, Stats.getHpMonster(), Stats.getAtkMonster());
     }
 
 }
