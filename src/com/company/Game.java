@@ -134,6 +134,7 @@ public class Game {
             dead=true;
             System.out.println("");
             System.out.println("=== GAME OVER ===");
+            System.out.println("");
             if(Stats.getMode().equals("normal")){
                 System.out.println("Sorry, you have been killed by a "+ room.monsterType.MonsterName);
             }else{

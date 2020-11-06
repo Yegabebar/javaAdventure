@@ -6,7 +6,7 @@ package com.company.miscellaneous;
  * - monsters
  * The damage increased for monster is directly defined in the attack method.
  */
-public class Events{
+public abstract class Events{
     public static boolean monsterKo;
     public static boolean playerKo;
 

@@ -3,10 +3,10 @@ package com.company.miscellaneous;
 /**
  * The purpose of this class is to be able to easily tweak the game parameters.
  */
-public class Stats {
+public abstract class Stats {
     public static int nbRooms, atkPlayer, hpPlayer, atkMonster, hpMonster, barbarianAttackScoreMultiplier;
     public static double playerEventRate, barbarianEventRate, sorcererEventRate;
-    private static String mode;
+    private static String selectedMode;
 
     /**
      * This function sets the variables according to which mode is selected in the main menu
@@ -19,10 +19,11 @@ public class Stats {
             hpPlayer=200;
             playerEventRate=0.1;
             atkMonster=10;
-            hpMonster=1;
+            hpMonster=40;
             barbarianAttackScoreMultiplier =2;
             barbarianEventRate=0.3;
             sorcererEventRate=0.1;
+            selectedMode = mode;
         }
         else if(mode.equals("hardcore")){
             nbRooms=5;
@@ -35,10 +36,11 @@ public class Stats {
             barbarianEventRate=0.15;
             sorcererEventRate=0.1;
             System.out.println("| HARCORE MODE ACTIVATED |");
+            selectedMode = mode;
         }
     }
 
     public static String getMode() {
-        return mode;
+        return selectedMode;
     }
 }

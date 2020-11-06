@@ -3,18 +3,23 @@ package com.company.miscellaneous;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Scores {
+public abstract class Scores {
     private static Map<Long,String> scoreBoard = new TreeMap();
 
+    /**
+     * Calls the scoreboard sorted by ascending score key. (default behavior of a Treemap)
+     */
     public static void getScoreBoard() {
+        System.out.println("=== HIGHSCORES ==");
         for (Map.Entry<Long, String> entry : scoreBoard.entrySet()) {
-            System.out.println("=== HIGHSCORES ==");
-            System.out.println(entry.getValue() + " " + entry.getKey());
-            System.out.println("=================");
+            System.out.println(entry.getValue() + " " + entry.getKey()+" seconds");
         }
+        System.out.println("=================");
     }
-
-    public static void setScore(Long score, String pseudo) {
-        scoreBoard.put(score,pseudo);
+    /**
+     * Writes a new score/nickname couple into the scoreboard each time the function is called
+     */
+    public static void setScore(Long score, String nickname) {
+        scoreBoard.put(score,nickname);
     }
 }
