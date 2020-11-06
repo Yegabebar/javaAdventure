@@ -5,6 +5,7 @@ import com.company.miscellaneous.WeaponType;
 
 public class Player {
     public WeaponType WeaponType;
+    public static boolean isPlayerKo;
     int hp;
     int atk;
 

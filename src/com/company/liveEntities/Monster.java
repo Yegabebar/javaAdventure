@@ -6,6 +6,7 @@ import com.company.miscellaneous.Stats;
 
 public class Monster {
     public MonsterType MonsterType;
+    public static boolean isMonsterKo;
     int hp;
     int atk;
 
