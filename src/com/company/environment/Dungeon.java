@@ -39,16 +39,16 @@ public class Dungeon {
 
                 System.out.println("==== NEW TURN ===");
                 //If the monster is not Ko, (managed by a boolean in another class)
-                if(room[i].monster.isMonsterKo==false){
+                if(room[i].monster.isKoStatus()==false){
                     //Set the damage value for the monster attack
                     dmgMonsterAttack = room[i].monster.attack();
                     //Substract the player health with the monster damage, then display the result
                     hero.setHp(hero.getHp()-dmgMonsterAttack);
-                    if(room[i].monster.isMonsterKo==false){System.out.println("You have lost "+dmgMonsterAttack+" hp");}
+                    if(room[i].monster.isKoStatus()==false){System.out.println("You have lost "+dmgMonsterAttack+" hp");}
 
                 }else{
                     //Else if the monster is Ko, we reset the monsterKo state for the next turn
-                    room[i].monster.isMonsterKo=false;
+                    room[i].monster.setKoStatus(false);
                     System.out.println("The Barbarian starts to recover");
                 }
 
@@ -58,14 +58,14 @@ public class Dungeon {
                 }else{
                     hero.setWeaponType(WeaponType.WATER_FLASK);
                     //If it's a sorcerer we try to get the player knocked out and store the result in a boolean for later use
-                    hero.isPlayerKo = Events.eventRandomizer(Stats.getSorcererEventRate());
+                    hero.setKoStatus(Events.eventRandomizer(Stats.getSorcererEventRate()));
                 }
                 //GAME OVER is managed here. If the player's hp are down to 0, a message is displayed by the function and the player is redirected to the main menu.
                 if(Game.gameOver(hero, room[i])){return;}
 
                 System.out.println("You have only "+hero.getHp()+" hp remaining"); //If the player is not dead we display the remaining HP
 
-                if(hero.isPlayerKo){ //Checks if the monster knocks down the player:if true, skip the rest of the turn
+                if(hero.isKoStatus()){ //Checks if the monster knocks down the player:if true, skip the rest of the turn
                     System.out.println("The monster knocked you down for one turn");
                     System.out.println("");
                     continue;
@@ -103,7 +103,7 @@ public class Dungeon {
                 System.out.println(""); //Visual separation
             }
             //We reset the variable monsterKo as we don't want to set Ko the monster from the next room
-            room[i].monster.isMonsterKo=false;
+            room[i].monster.setKoStatus(false);
         }
     }
 }

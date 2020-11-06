@@ -5,8 +5,6 @@ import com.company.environment.Room;
 import com.company.miscellaneous.*;
 import com.company.liveEntities.Player;
 
-import java.io.IOException;
-
 public class Game {
     /**
      * Starts the game, the rest of the mechanics are stored in the Dungeon.enterDungeon() method

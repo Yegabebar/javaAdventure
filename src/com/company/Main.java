@@ -1,8 +1,6 @@
 package com.company;
 
 import com.company.miscellaneous.Scores;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {

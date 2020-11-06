@@ -8,9 +8,9 @@ import com.company.miscellaneous.WeaponType;
 
 public class Player {
     public WeaponType WeaponType;
-    public static boolean isPlayerKo;
-    int hp;
-    int atk;
+    private boolean isKoStatus;
+    private int hp;
+    private int atk;
 
     public Player(int hpNewPlayer, int atkNewPlayer){
         hp = hpNewPlayer;
@@ -34,6 +34,7 @@ public class Player {
         }
         return dmg;
     }
+
     /**
      * This function sets the flask buff stack when the weapon used is a FLask.
      * If the weapon is a sword, it will set up the knockout event for knocking out barbarians
@@ -58,12 +59,21 @@ public class Player {
         }else{ //else if the weapon is the sword, we try to knock out the monster
             //If the player event kicks in (monster knocked out)
             if(Events.eventRandomizer(Stats.getPlayerEventRate())){
-                room.monster.isMonsterKo=true; //We set the variable monsterKo to true for the next turn
+                room.monster.setKoStatus(true); //We set the variable monsterKo to true for the next turn
                 System.out.println("The Barbarian is knocked out for one turn after you hit it on its head");
             }
         }
         return flaskBonus;
     }
+
+    public boolean isKoStatus() {
+        return isKoStatus;
+    }
+
+    public void setKoStatus(boolean koStatus) {
+        isKoStatus = koStatus;
+    }
+
     public int getHp() {
         return hp;
     }

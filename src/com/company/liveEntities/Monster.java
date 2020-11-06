@@ -6,9 +6,9 @@ import com.company.miscellaneous.Stats;
 
 public class Monster {
     public MonsterType MonsterType;
-    public static boolean isMonsterKo;
-    int hp;
-    int atk;
+    private boolean koStatus;
+    private int hp;
+    private int atk;
 
     public Monster(MonsterType newMonsterType, int hpNewMonster, int atkNewMonster){
         //Sets the values for the properties of the Monster object
@@ -41,6 +41,14 @@ public class Monster {
         //Displays the attack message depending on the monster type which is attacking
         System.out.println("The "+ MonsterType.MonsterName +monsterAction);
         return dmg;
+    }
+
+    public boolean isKoStatus() {
+        return koStatus;
+    }
+
+    public void setKoStatus(boolean koStatus) {
+        this.koStatus = koStatus;
     }
 
     public int getHp() {
