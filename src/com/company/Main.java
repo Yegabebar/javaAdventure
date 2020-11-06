@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.miscellaneous.Scores;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,7 +18,8 @@ public class Main {
         while(keepUp) {
             System.out.println("Choose between the following options");
             System.out.println("1 - Start game");
-            System.out.println("2 - Quit");
+            System.out.println("2 - View Highscores");
+            System.out.println("3 - Quit");
 
             String userInput = getPlayerInput();
             switch (userInput) {
@@ -24,6 +27,9 @@ public class Main {
                     Game.start("normal");
                 }
                 case "2" -> {
+                    Scores.getScoreBoard();
+                }
+                case "3" -> {
                     return;
                 }
                 case "hit me with a brick" -> {

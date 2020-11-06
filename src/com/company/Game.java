@@ -2,11 +2,8 @@ package com.company;
 
 import com.company.environment.Dungeon;
 import com.company.environment.Room;
-import com.company.miscellaneous.Events;
-import com.company.miscellaneous.MonsterType;
+import com.company.miscellaneous.*;
 import com.company.liveEntities.Player;
-import com.company.miscellaneous.Stats;
-import com.company.miscellaneous.WeaponType;
 
 import java.io.IOException;
 
@@ -24,7 +21,7 @@ public class Game {
         Player hero = new Player(Stats.hpPlayer, Stats.atkPlayer);
         //The dungeon creates a list of rooms without any object rooms in it.
         Dungeon dungeon = new Dungeon(Stats.nbRooms);
-
+        long startTime = System.nanoTime(); //Start the timer
         //Main loop, used create a room with a monster at each turn, we pass room to room each time we get out of the while.
         for(int i= 0; i<dungeon.room.length; i++){
             int flaskBonus=0;
@@ -91,8 +88,8 @@ public class Game {
                     if(room.monster.getHp()<=0){//If the monster is dead and the room is the last one, the player wins.
                         //If the room was the last, the player wins
                         if(i==Stats.nbRooms-1){
-                            System.out.println("Congratulations, the treasure is yours!");
-                            System.out.println("");
+                            //The player is congratulated prompted to enter its nickname in this function
+                            gameCompleted(startTime);
                             return;
                         }//If it wasn't the last room, the message is not the same one
                         System.out.println("Congrats, the "+room.monster.MonsterType.MonsterName +" is dead, you can open the next door");
@@ -106,6 +103,22 @@ public class Game {
             //We reset the variable monsterKo as we don't want to set Ko the monster from the next room
             Events.monsterKo=false;
         }
+    }
+
+    /**
+     * This function calculates the time elapsed for the game completion, asks for the player's nickname
+     * and stores the results in the scoreboard.
+     * @param startTime
+     */
+    private static void gameCompleted(long startTime) {
+        long timeElapsed = System.nanoTime()- startTime;
+        timeElapsed/=Math.pow(10,9);
+        System.out.println("Game duration: "+timeElapsed+" seconds");
+        System.out.println("Please enter your nickname");
+        String nickname = Main.getPlayerInput();
+        Scores.setScore(timeElapsed, nickname);
+        System.out.println("Congratulations, the treasure is yours!");
+        System.out.println("");
     }
 
     /**

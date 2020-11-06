@@ -19,7 +19,7 @@ public class Stats {
             hpPlayer=200;
             playerEventRate=0.1;
             atkMonster=10;
-            hpMonster=40;
+            hpMonster=1;
             barbarianAttackScoreMultiplier =2;
             barbarianEventRate=0.3;
             sorcererEventRate=0.1;
